@@ -50,7 +50,7 @@ int main(int argc,char * argv[]){
       switch (model){
       case '+':
 	plusModel[(row-1)*N+col-1]=1;
-	DiagonalSub[abs(row-col)]=1;
+	DiagonalSub[row-col+N-1]=1;
 	DiagonalSum[row+col-2]=1;
 	points++;
 	break;
