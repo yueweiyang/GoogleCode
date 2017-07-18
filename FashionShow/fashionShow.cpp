@@ -39,7 +39,7 @@ int main(int argc,char * argv[]){
     int * plusModel = new int[N*N]();
     int * Row = new int[N]();
     int * Col =new int[N]();
-    int * DiagonalSub = new int[N]();
+    int * DiagonalSub = new int[2*N-1]();
     int * DiagonalSum = new int[2*N-1]();
     int points = 0;
     for (long int n = 1; n<=M; n++){
@@ -63,7 +63,7 @@ int main(int argc,char * argv[]){
       case 'o':
 	plusModel[(row-1)*N+col-1]=1;
 	crossModel[(row-1)*N+col-1]=1;
-	DiagonalSub[abs(row-col)]=1;
+	DiagonalSub[row-col+N-1]=1;
 	DiagonalSum[row+col-2]=1;
 	Row[row-1]=1;
 	Col[col-1]=1;
@@ -75,6 +75,7 @@ int main(int argc,char * argv[]){
     nCase++;
 
     output<<"Case #"<<nCase<<": ";
+    cout<<"Case #"<<nCase<<": ";
 
     size_t cModel = 0;
     for (long int nRow=0;nRow<N;nRow++){
@@ -97,11 +98,11 @@ int main(int argc,char * argv[]){
 
     for (long int nRow=0;nRow<N;nRow++){
       for (long int nCol=0;nCol<N;nCol++){
-	if (DiagonalSub[abs(nRow-nCol)]==1||DiagonalSum[nRow+nCol]==1){ continue;
+	if (DiagonalSub[nRow-nCol+N-1]==1||DiagonalSum[nRow+nCol]==1){ continue;
 	}
 	else {
 	  plusModel[nRow*N+nCol]=2;
-	  DiagonalSub[abs(nRow-nCol)]=1;
+	  DiagonalSub[nRow-nCol+N-1]=1;
 	  DiagonalSum[nRow+nCol]=1;
 	  points++;
 	  cModel++;
@@ -114,17 +115,21 @@ int main(int argc,char * argv[]){
     }
 
     output<<points<<" "<<cModel<<endl;
+    cout<<points<<" "<<cModel<<endl;
 
     for (long int nRow=0;nRow<N;nRow++){
       for (long int nCol=0;nCol<N;nCol++){
 	if (plusModel[nRow*N+nCol]*crossModel[nRow*N+nCol]>1){
 	  output<<"o "<<nRow+1<<" "<<nCol+1<<endl;
+	  cout<<"o "<<nRow+1<<" "<<nCol+1<<endl;
 	}
 	else if (plusModel[nRow*N+nCol]==2){
 	  output<<"+ "<<nRow+1<<" "<<nCol+1<<endl;
+	  cout<<"+ "<<nRow+1<<" "<<nCol+1<<endl;
 	}
 	else if (crossModel[nRow*N+nCol]==2){
 	  output<<"x "<<nRow+1<<" "<<nCol+1<<endl;
+	  cout<<"x "<<nRow+1<<" "<<nCol+1<<endl;
 	}
       }
     }
