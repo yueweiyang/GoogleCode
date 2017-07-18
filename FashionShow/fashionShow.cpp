@@ -101,11 +101,19 @@ int main(int argc,char * argv[]){
 	if (DiagonalSub[nRow-nCol+N-1]==1||DiagonalSum[nRow+nCol]==1){ continue;
 	}
 	else {
-	  plusModel[nRow*N+nCol]=2;
+	  if (nRow+nCol-1>N){
+	    plusModel[(N-1)*N+nRow+nCol-N+1]=2;
+	    plusModel[N*N-nRow+nCol]=2;
+	    points += 2;
+	    cModel += 2;
+	  }
+	  else {
+	    plusModel[nRow*N+nCol]=2;
+	    points++;
+	    cModel++;
+	  }
 	  DiagonalSub[nRow-nCol+N-1]=1;
-	  DiagonalSum[nRow+nCol]=1;
-	  points++;
-	  cModel++;
+	  DiagonalSum[nRow+nCol]=1;  
 	}
 
 	if (plusModel[nRow*N+nCol]*crossModel[nRow*N+nCol]==4){
