@@ -123,30 +123,31 @@ int main(int argc,char * argv[]){
       }
       }*/
 
-      vector<int> ds;
-      for(int i = 0; i < N - 1; i++) {
-	ds.push_back(i);
-	ds.push_back(N * 2 - i - 2);
-      }
-      ds.push_back(N - 1);
+    vector<int> ds;
+    for(int i = 0; i < N - 1; i++) {
+      ds.push_back(i);
+      ds.push_back(N * 2 - i - 2);
+    }
+    ds.push_back(N - 1);
+    
+    for(int d: ds) {
+      if(DiagonalSum[d]) { continue; }
+      int i = d < N ? d : N - 1;
+      int j = d < N ? 0 : d - N + 1;
       
-      for(int d: ds) {
-	if(DiagonalSum[d]) { points++; continue; }
-	int i = d < N ? d : N - 1;
-	int j = d < N ? 0 : d - N + 1;
-	
-    for(; i >= 0 && j < N; i--, j++) {
-      if(DiagonalSub[i - j + N - 1]) continue;
+      for(; i >= 0 && j < N; i--, j++) {
+	if(DiagonalSub[i - j + N - 1]) continue;
       
-      plusModel[i*N+j] = 1;
-      DiagonalSub[i - j + N - 1] = true;
-      points++;
-      if (plusModel[i*N+j]*crossModel[i*N+j]!=4){
-	  cModel++;
+	plusModel[i*N+j] = 2;
+	DiagonalSub[i - j + N - 1] = 1;
+	points++;
+	cModel++;
+      if (plusModel[i*N+j]*crossModel[i*N+j]==4){
+	cModel--;
       }
       break;
+      }
     }
-  }
 
     output<<points<<" "<<cModel<<endl;
     cout<<points<<" "<<cModel<<endl;
